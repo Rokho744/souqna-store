@@ -4,83 +4,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>سوقنا | SOUQNA</title>
+<title>SOUQNA | سوقنا</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f6fa;color:#222}
-header{background:#142d4e;color:white;padding:25px 15px;text-align:center}
-header h1{margin:0;font-size:32px}
-header p{margin:8px 0 0}
-main{max-width:1050px;margin:25px auto;padding:12px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
-.product{background:white;padding:18px;border-radius:12px;text-align:center;box-shadow:0 2px 8px #ddd}
-.product .emoji{font-size:55px}
-.price{color:#087b48;font-weight:bold;font-size:20px}
-button{border:0;border-radius:7px;padding:11px 16px;background:#087b48;color:white;cursor:pointer}
-.cart{background:white;padding:18px;margin-top:25px;border-radius:12px}
-input,textarea{width:100%;padding:12px;margin:7px 0;border:1px solid #ccc;border-radius:7px}
-footer{text-align:center;padding:20px;color:#666}
+body{margin:0;background:#faf8ff;color:#29223a;font-family:Arial,sans-serif}
+header{background:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 2px 12px #ddd}
+.logo{font-size:27px;font-weight:bold;color:#7138b5}
+nav a{color:#51445e;text-decoration:none;margin:8px;font-weight:bold}
+.hero{margin:22px auto;padding:35px 22px;max-width:1150px;border-radius:20px;background:linear-gradient(120deg,#51218a,#a36be0);color:white;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.hero h1{font-size:34px;margin:0 0 12px}
+.hero p{font-size:17px;line-height:1.8}
+.hero .emoji{font-size:95px}
+main{max-width:1150px;margin:25px auto;padding:15px}
+h2{color:#57258e}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.feature{background:white;padding:16px;text-align:center;border-radius:12px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:17px}
+.product{background:white;padding:17px;border-radius:15px;text-align:center;box-shadow:0 3px 12px #e8e0ef}
+.pic{height:130px;background:#f0e8fa;border-radius:12px;display:grid;place-items:center;font-size:65px}
+.product h3{min-height:40px}
+.price{color:#7138b5;font-size:21px;font-weight:bold}
+button{background:#7138b5;color:white;border:0;border-radius:9px;padding:12px 17px;cursor:pointer;font-weight:bold}
+button:hover{background:#51218a}
+.cart{margin-top:30px;background:white;padding:20px;border-radius:15px}
+input,textarea{display:block;width:100%;padding:13px;margin:9px 0;border:1px solid #ddd;border-radius:8px;font-size:15px}
+footer{margin-top:35px;background:#342044;color:white;text-align:center;padding:25px}
+@media(max-width:600px){.hero h1{font-size:26px}.features{grid-template-columns:1fr}.hero .emoji{font-size:65px}}
 </style>
 </head>
 <body>
 <header>
-<h1>🛍️ سوقنا SOUQNA</h1>
-<p>مرحبا بكم في متجرنا الإلكتروني</p>
-<p>منتجات متنوعة وأثمنة مناسبة والتوصيل عند الاستلام</p>
+<div class="logo">🛍️ SOUQNA | سوقنا</div>
+<nav><a href="#products">المنتجات</a><a href="#cart">السلة</a><a href="#contact">اتصل بنا</a></nav>
 </header>
+
+<section class="hero">
+<div>
+<h1>مرحبا بكم في سوقنا 💜</h1>
+<p>اكتشف منتجات متنوعة بأسعار مناسبة.<br>الجودة والاختيار والتوصيل حتى باب منزلك.</p>
+<a href="#products"><button>اكتشف المنتجات</button></a>
+</div>
+<div class="emoji">🛍️</div>
+</section>
+
 <main>
-<h2>منتجاتنا</h2>
-<div class="products" id="products"></div>
-<section class="cart">
+<div class="features">
+<div class="feature">🚚<br><b>توصيل إلى المنزل</b></div>
+<div class="feature">💵<br><b>الدفع عند الاستلام</b></div>
+<div class="feature">💜<br><b>خدمة الزبناء</b></div>
+</div>
+
+<h2 id="products">✨ منتجاتنا</h2>
+<div class="products" id="productList"></div>
+
+<section class="cart" id="cart">
 <h2>🛒 سلة المشتريات</h2>
-<div id="cart">السلة فارغة</div>
+<div id="cartItems">السلة فارغة</div>
 <h3 id="total">المجموع: 0 درهم</h3>
-<h3>معلومات التوصيل</h3>
+<h2>معلومات التوصيل</h2>
 <input id="name" placeholder="الاسم الكامل">
 <input id="phone" placeholder="رقم الهاتف">
 <textarea id="address" placeholder="العنوان والمدينة"></textarea>
-<button onclick="order()">تأكيد الطلب عبر WhatsApp</button>
+<button onclick="sendOrder()">تأكيد الطلب عبر WhatsApp</button>
 </section>
 </main>
-<footer>© 2026 SOUQNA - سوقنا</footer>
+
+<footer id="contact">
+<h2 style="color:white">SOUQNA - سوقنا</h2>
+<p>شكراً لزيارتكم متجرنا 💜</p>
+<p>للطلب والاستفسار عبر WhatsApp: 0696374968</p>
+</footer>
+
 <script>
 const whatsapp="212696374968";
-const items=[
-["حامل الهاتف للسيارة","59","📱"],
-["منظم المنزل","59","🏠"],
-["جهاز عرض النجوم","169","🌌"],
-["قطاعة الخضر","119","🥕"],
-["منظم التوابل","159","🧂"],
-["مصباح LED","59","💡"],
-["منظم مستحضرات التجميل","109","💄"],
-["منظم الحقائب","59","👜"]
+const products=[
+["حامل الهاتف للسيارة",59,"📱"],
+["منظم المنزل",59,"🏠"],
+["جهاز عرض النجوم",169,"🌌"],
+["قطاعة الخضر",119,"🥕"],
+["منظم التوابل",159,"🧂"],
+["مصباح LED",59,"💡"],
+["منظم مستحضرات التجميل",109,"💄"],
+["منظم الحقائب",59,"👜"]
 ];
 let basket=[];
-const products=document.getElementById("products");
-items.forEach((p,i)=>{
-products.innerHTML+=`<div class="product">
-<div class="emoji">${p[2]}</div>
+const list=document.getElementById("productList");
+products.forEach((p,i)=>{
+list.innerHTML+=`<article class="product">
+<div class="pic">${p[2]}</div>
 <h3>${p[0]}</h3>
-<p class="price">${p[1]} درهم</p>
+<div class="price">${p[1]} درهم</div>
 <button onclick="add(${i})">أضف إلى السلة</button>
-</div>`;
+</article>`;
 });
-function add(i){basket.push(items[i]);showCart();}
+function add(i){basket.push(products[i]);showCart();}
 function showCart(){
-document.getElementById("cart").innerHTML=basket.length?
-basket.map(p=>p[0]+" - "+p[1]+" درهم").join("<br>"):"السلة فارغة";
-document.getElementById("total").textContent="المجموع: "+basket.reduce((s,p)=>s+Number(p[1]),0)+" درهم";
+document.getElementById("cartItems").innerHTML=basket.length?
+basket.map((p,i)=>`${p[0]} - ${p[1]} درهم <button onclick="removeItem(${i})">حذف</button>`).join("<hr>"):"السلة فارغة";
+document.getElementById("total").textContent="المجموع: "+basket.reduce((s,p)=>s+p[1],0)+" درهم";
 }
-function order(){
+function removeItem(i){basket.splice(i,1);showCart();}
+function sendOrder(){
 if(!basket.length){alert("السلة فارغة");return;}
-let n=document.getElementById("name").value.trim();
-let ph=document.getElementById("phone").value.trim();
-let a=document.getElementById("address").value.trim();
+const n=document.getElementById("name").value.trim();
+const ph=document.getElementById("phone").value.trim();
+const a=document.getElementById("address").value.trim();
 if(!n||!ph||!a){alert("يرجى ملء جميع المعلومات");return;}
-let msg="طلب جديد من متجر SOUQNA%0Aالاسم: "+n+"%0Aالهاتف: "+ph+"%0Aالعنوان: "+a+"%0Aالمنتجات:%0A"+basket.map(p=>p[0]+" - "+p[1]+" درهم").join("%0A")+"%0Aالمجموع: "+basket.reduce((s,p)=>s+Number(p[1]),0)+" درهم";
-window.open("https://wa.me/"+whatsapp+"?text="+encodeURIComponent(msg)," _blank");
+const msg="طلب جديد من SOUQNA\nالاسم: "+n+"\nالهاتف: "+ph+"\nالعنوان: "+a+"\nالمنتجات:\n"+basket.map(p=>p[0]+" - "+p[1]+" درهم").join("\n")+"\nالمجموع: "+basket.reduce((s,p)=>s+p[1],0)+" درهم";
+window.open("https://wa.me/"+whatsapp+"?text="+encodeURIComponent(msg),"_blank");
 }
 </script>
 </body>
 </html>
-
